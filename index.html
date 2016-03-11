@@ -4,16 +4,19 @@
     <meta charset="utf-8">
     <title>Yelp!</title>
 <link rel="stylesheet" href="style.css"/>
-<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
 
-<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="node_modules/lib/queue/queue.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="script.js"></script>
 <body>
-<div class="container">
+<div class="container" id="container1">00
     <h1>Exploring Yelp Data</h1>
-    <div class="plot"></div>
+    <div class="plot" id="plot"></div>
 </div>
+	
 </body>
 
 </html>

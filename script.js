@@ -1,34 +1,37 @@
 
 //Set up drawing environment with margin conventions
 var margin = {t:20,r:20,b:50,l:50};
-var width = document.getElementById('plot').clientWidth - margin.l - margin.r,
-    height = document.getElementById('plot').clientHeight - margin.t - margin.b;
 
-var plot = d3.select('#plot')
-    .append('svg')
-    .attr('width',width + margin.l + margin.r)
-    .attr('height',height + margin.t + margin.b)
-    .append('g')
-    .attr('class','plot-area')
-    .attr('transform','translate('+margin.l+','+margin.t+')');
+BussinessDataLoad();
 
+function BussinessDataLoad()
+{
+	queue()
+	.defer(d3.csv,'Data/yelp-business.csv',parse)
+	.await(dataLoaded);
+}
 
-d3.csv("data/yelp-business.csv", function(d){
-     return {
+function dataLoaded(err,Bussiness)
+{
+	console.log(Bussiness);
+}
 
-         //PARSING DATA HERE:
-
-         //seqId:d.seq_id,
-         //status: d.status,
-         //duration: +d.duration,
-         //start: d.strt_statn,
-         //end: d.end_statn,
-         //startDate: new Date()
-     }
-
-
-}, function(err, rows){
-
-
-
-});
+function parse(rows)
+{
+	return {
+		BusinessId : rows.business_id,
+		Categories : rows.categories,
+		City : rows.city,
+		Address : rows.full_address,
+		OpenTime : rows.hours,
+		Latitude : +rows.latitude,
+		Longitude : +rows.longitude,
+		Name : rows.name,
+		Neighborhoods : rows.neighborhoods,
+		Ifopen : rows.open,
+		Review : +rows.review_count,
+		Stars : +rows.stars,
+		States : rows.state,
+		Type : rows.type
+	}
+}
