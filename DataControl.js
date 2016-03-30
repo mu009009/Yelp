@@ -17,6 +17,7 @@ function dataLoaded(err,Type,Bussiness)
 	GroupData = NestGroupData(TypeData);
 	console.log(GroupData);
 	GroupArrary = GroupDataArrary(GroupData);
+	DeleteThePiePart();
 	DrawPieChart(GroupArrary);
 	DrawButton(StatesName);
 }

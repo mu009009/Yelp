@@ -39,7 +39,6 @@ function DrawButton(StatesName)
 		.on('click',function(d)
 		{
 			KeyWord = d;
-			DeleteThePiePart();
 			BussinessDataLoad();
 		})
 	
