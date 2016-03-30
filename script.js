@@ -10,6 +10,7 @@ var TypeData = null;
 var GroupData = null;
 var GroupArrary = null;
 var KeyWord = null;
+var StatesName = null;
 
 function BussinessDataLoad()
 {
@@ -21,6 +22,8 @@ function BussinessDataLoad()
 
 function dataLoaded(err,Type,Bussiness)
 {
+	StatesName = GetStates(Bussiness);
+	console.log(StatesName);
 	KeyWord = "PA";
 	CategoriesDataRecord = TranslateData(Bussiness);
 	CategoriesNumberArrary = FilterData(Bussiness,CategoriesDataRecord)
@@ -74,7 +77,6 @@ function TranslateData(Business)
 		{
 			if(Business[i].States == KeyWord)
 				{
-					console.log(Business[i]);
 					for(var j=0;j<Business[i].Categories.length;j++)
 						{
 								for(var z=0;z<TemporyRecord.length;z++)
@@ -101,7 +103,18 @@ function TranslateData(Business)
 
 function FilterData(Bussiness,CategoriesDataRecord)
 {	
-	var croosFilterChange = crossfilter(Bussiness);
+	var StatesBussiness = [null];
+	for(var i=0; i<Bussiness.length;i++)
+		{
+			if(Bussiness[i].States == KeyWord)
+				{
+					StatesBussiness.push(Bussiness[i]);
+				}
+		}
+	
+	StatesBussiness.shift();
+	
+	var croosFilterChange = crossfilter(StatesBussiness);
 	
 	var CategoryFilter = croosFilterChange.dimension(function(d)
 	{
@@ -185,6 +198,30 @@ function GroupDataArrary(GroupData)
 	return TemporyDataRecord;
 }
 
+function GetStates(Business)
+{
+	var TemporyDataRecord = [null];
+	for (var i=0;i<Business.length;i++)
+		{
+			for(var j=0;j<TemporyDataRecord.length;j++)
+				{
+					if(TemporyDataRecord[j]==Business[i].States)
+						{
+							break;
+						}
+					else if(j==TemporyDataRecord.length-1)
+						{
+							TemporyDataRecord.push(Business[i].States);
+							break;
+						}
+				}
+		}
+	
+	TemporyDataRecord.shift();
+	return TemporyDataRecord;
+}
+
+
 function DrawPieChart(Business)
 {
 //	console.log(Business);
@@ -254,3 +291,4 @@ function DrawPieChart(Business)
                 return d.value;  
             });  
 }
+
