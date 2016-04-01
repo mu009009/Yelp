@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 //---------Setting up the canvas --------------//
 var canvas0Width = document.getElementById('canvas-1').clientWidth,
     canvas0Height = document.getElementById('canvas-1').clientHeight;
@@ -14,6 +15,10 @@ var canvasWidth = canvas3Width - margin.l - margin.r,
     canvasHeight = canvas3Height - margin.t - [margin.b + 70];
 
 
+=======
+//Set up drawing environment with margin conventions
+var margin = {t:20,r:20,b:50,l:50};
+>>>>>>> origin/master
 var CategoriesDataRecord = [null];
 var CategoriesNumberArrary = [null];
 var TypeData = null;
@@ -24,6 +29,7 @@ var StatesName = null;
 
 KeyWord = "PA";
 BussinessDataLoad();
+<<<<<<< HEAD
 
 //-------------------------------------  HEAT MAP  ---------------------------------------//
 //maybe this is how we select it on canvas 2?
@@ -117,3 +123,5 @@ BussinessDataLoad();
 //svg.append("g")
 //    .attr("class", "y axis")
 //    .call(yAxis);
+=======
+>>>>>>> origin/master
