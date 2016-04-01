@@ -1,6 +1,6 @@
 html,body,div,ul,li,svg{
     margin:0;
-    padding:0;
+    padding: 0px;
     list-style:none;
 }
 
@@ -8,7 +8,7 @@ html,body,div,ul,li,svg{
 html,body{
     height: 100%;
     position: relative;
-    background: darkred;
+    background: whitesmoke;
 }
 
 .container{
@@ -19,16 +19,26 @@ html,body{
 }
 .container .canvas{
     width:100%;
-    background:white;
+    background:lightgray;
     height:600px;
 }
 
 /*------------font-------------*/
-body{
-    font-size: 16px;
+
+h1{
+    font-family: 'Franklin Gothic Medium', 'Franklin Gothic', 'ITC Franklin Gothic', Arial, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 900;
+    line-height: 26px;
+    color: darkred;
+    padding-bottom: 20px;
+    padding-top:35px;
+    /*padding-left: 100px;*/
+    width: 100%;
+    margin-right: 0;
+    /*position: absolute;*/
 }
-h1{ font-size:2em;}
-h2{ font-size:1.3em;}
-p{
-    font-family:"Droid Serif", serif;
-}
+
+

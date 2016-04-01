@@ -1,23 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Yelp!</title>
-<link rel="stylesheet" href="style.css"/>
-<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-</head>
 
+<head>
+<meta charset="utf-8">
+<title>Yelp!</title>
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <script src="node_modules/lib/queue/queue.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="script.js"></script>
-<script src="lib/crossfilter/crossfilter.js"></script>
-<body>
-<div class="container" id="container1">00
-    <h1>Exploring Yelp Data</h1>
-    <div class="plot" id="plot" style="width: 720px;"></div>
-</div>
-	
-</body>
 
+<script src="lib/crossfilter/crossfilter.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <h1>Yelp! Business Over Time</h1>
+    <div class="section">
+        <p>Just a few years ago, we would never have thought that we would be asking total stranger on the internet for reconditions<br/>
+            for restaurants, stores, pet services, etc. But, with the our growing dependency on the apps in our smartphones, that is <br/>
+            exactly what happening. “Yelp it” has become a phrase that we all use in our daily lives when faced with the hassle of <br/>
+            making a decision for what to do or where to go. Yelp has became our saving grace and trusted allay even when we travel to <br/>
+            a country who's language we don't speak.
+            <br/>
+            <br/>
+            This project was done during a d3 class in the Information Design and Visualization MFA program in Northeastern University <br/>
+            under the mentorship of Siqi Zhu by the students Maaria Assami and Xiaxin Chen. The visualizations is based on data given by<br/>
+            Yelp and aims to explore the changing star-rates given to the different businesses on the app over three years timeframe.
+        </p>
+    </div>
+    <div class="canvas" id="canvas-1">
+        <div class="canvas-1" id="plot">
+            <h3>Another into and text here</h3>
+        </div>
+    </div>
+    <div class="section">
+        <p>
+            <br/>
+            more text about the second viz goes here.<br />
+            <br />
+        <div class="canvas" id="canvas-3"></div>
+    </div>
+
+    <h4>conclusion maybe</h4>
+</div>
+<script src="modules/Button.js"></script>
+<script src="modules/DeleteTheExist.js"></script>
+<script src="modules/DrawPieChart.js"></script>
+<script src="modules/DataControl.js"></script>
+<script src="modules/heatMap.js"></script>
+<script src="script.js"></script>
+</body>
 </html>
