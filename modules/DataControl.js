@@ -1,12 +1,14 @@
 function BussinessDataLoad()
 {
+	busiName = d3.map();
 	queue()
 	.defer(d3.csv,'Data/Categories-Yelp.csv',parseTwo)
-	.defer(d3.csv,'Data/yelp-business.csv',parse)
+	.defer(d3.csv,'Data/yelp-business-sel.csv',parse)
+	.defer(d3.csv,'Data/yelp-reviews-sel.csv',parseReviews)
 	.await(dataLoaded);
 }
 
-function dataLoaded(err,Type,Bussiness)
+function dataLoaded(err,Type,Bussiness, Reviews)
 {
 	StatesName = GetStates(Bussiness);
 	StatesName = EffectiveStates();
@@ -15,32 +17,37 @@ function dataLoaded(err,Type,Bussiness)
 	CategoriesNumberArrary = FilterData(Bussiness,CategoriesDataRecord)
 	TypeData = AdditionalChange(CategoriesDataRecord,CategoriesNumberArrary,Type);
 	GroupData = NestGroupData(TypeData);
-	console.log(GroupData);
+	//console.log(GroupData);
 	GroupArrary = GroupDataArrary(GroupData);
 	DeleteThePiePart();
 	DrawPieChart(GroupArrary);
 	DrawButton(StatesName);
+	console.log(Reviews);
+	DrawHeatMap(Reviews,busiName)
 }
 
 function parse(rows)
-{	
+{
+	busiName.set(rows.business_id, rows.name)
 	return {
 		BusinessId : rows.business_id,
 		Categories : CategoriesName(rows.categories),
-		City : rows.city,
-		Address : rows.full_address,
-		OpenTime : rows.hours,
-		Latitude : +rows.latitude,
-		Longitude : +rows.longitude,
 		Name : rows.name,
-		Neighborhoods : rows.neighborhoods,
-		Ifopen : rows.open,
-		Review : +rows.review_count,
-		Stars : +rows.stars,
-		States : rows.state,
-		Type : rows.type
+		States : rows.state
 	}
 }
+
+function parseReviews(rows) {
+	//busiName.set(rows.business_id, rows.name)
+	return {
+		busId: rows.business_id,
+		Stars: +rows.stars,
+		Date: new Date(rows.date),
+		month: new Date(rows.date).getMonth()
+}
+console.log("date",Date);
+}
+
 
 function parseTwo(rows)
 {
@@ -51,7 +58,7 @@ function parseTwo(rows)
 }
 
 function CategoriesName(Business)
-{						
+{
 	var NewString = Business.replace("[","");
 		NewString = NewString.replace("]","");
 		NewString = NewString.split(",");
@@ -82,7 +89,7 @@ function TranslateData(Business)
 													}
 											}
 									}
-						}					
+						}
 				}
 		}
 	TemporyRecord.shift();
@@ -90,7 +97,7 @@ function TranslateData(Business)
 }
 
 function FilterData(Bussiness,CategoriesDataRecord)
-{	
+{
 	var StatesBussiness = [null];
 	for(var i=0; i<Bussiness.length;i++)
 		{
@@ -99,23 +106,23 @@ function FilterData(Bussiness,CategoriesDataRecord)
 					StatesBussiness.push(Bussiness[i]);
 				}
 		}
-	
+
 	StatesBussiness.shift();
-	
+
 	var croosFilterChange = crossfilter(StatesBussiness);
-	
+
 	var CategoryFilter = croosFilterChange.dimension(function(d)
 	{
 		return d.Categories;
 	})
-	
+
 	var TemporyDataRecord = [null];
-	
+
 	for(var i=0;i<CategoriesDataRecord.length;i++)
 		{
-			TotleNumberCategoriesForeach = CategoryFilter.filter(function(d) 
+			TotleNumberCategoriesForeach = CategoryFilter.filter(function(d)
 			{
-				if (d.indexOf(CategoriesDataRecord[i]) < 0) 
+				if (d.indexOf(CategoriesDataRecord[i]) < 0)
 				{
 					return false;
 				}
@@ -124,9 +131,9 @@ function FilterData(Bussiness,CategoriesDataRecord)
 			.top(Infinity);
 			TemporyDataRecord.push(TotleNumberCategoriesForeach.length);
 		}
-	
+
 	TemporyDataRecord.shift();
-	
+
 	return TemporyDataRecord;
 }
 
@@ -145,7 +152,7 @@ function AdditionalChange(CategoriesData,CategoriesNumberData,Type)
 						}
 				}
 		}
-	
+
 	TemporyDataRecord.shift();
 	return TemporyDataRecord;
 }
@@ -169,7 +176,7 @@ function NestGroupData(TypeData)
 						}
 				}
 		}
-	
+
 	TemporyDataRecord.shift();
 	return TemporyDataRecord;
 }
@@ -181,7 +188,7 @@ function GroupDataArrary(GroupData)
 		{
 			TemporyDataRecord.push(GroupData[i].Value);
 		}
-	
+
 	TemporyDataRecord.shift();
 	return TemporyDataRecord;
 }
@@ -204,7 +211,7 @@ function GetStates(Business)
 						}
 				}
 		}
-	
+
 	TemporyDataRecord.shift();
 	return TemporyDataRecord;
 }
