@@ -1,180 +1,155 @@
-
-
-
-//-------------------------------------  HEAT MAP  ---------------------------------------//
-////maybe this is how we select it on canvas 2?
-//var heatMap = d3.select("#canvas-2")
-//    .append('svg')
-//    .attr('class','svg')
-//    .attr('id','heatMap');
 //
 //
-////-------------- VARIABLES-----------------//
-////var days = d3.max(dataset, function(d) { return d.day; })
-////	- d3.min(dataset, function(d) { return d.day; });
-////var hours = d3.max(dataset, function(d) { return d.hour; })
-////	- d3.min(dataset, function(d) { return d.hour; });
-////
-//var StarsMin = d3.min(rows, function(d) { return d.Stars; }),
-//    StarsMax = d3.max(rows, function(d) { return d.Stars; });
-//
-//var dotWidth = 1,
-//    dotHeight = 3,
-//    dotSpacing = 0.5;
-//
-////var margin = {top: 0, right: 25, bottom: 40, left: 25},
-////	width = (dotWidth * 2 + dotSpacing) * days,
-////	height = (dotHeight * 2 + dotSpacing) * hours;//200 - margin.top - margin.bottom;
+//function DrawHeatMap(rows, busiName) {
 //
 //
-//var scaleX = d3.time.scale()
-//    .domain([new Date(2012, 0, 1), new Date(2012, 11, 31)])
-//    .range([0, width]);
+//    //todo:-----------STEP UP-----------//
+//    //setting up the min and max for the color scale // that will relate to the STARS connected reviews
+//    var starsMin = d3.min(rows, function (d) {
+//            return d.Stars; }),
+//        starsMax = d3.max(rows, function (d) {
+//            return d.Stars; });
 //
-//var scaleY = d3.scale.ordinal().domain(Name).rangePoints([0, canvasWidth]) //to pull the NAME from the DATA - name of business
 //
-////Define the color scale
-//var colorScale = d3.scale.linear()
-//    .domain([StarsMin, StarsMax])
-//    .range(["#c41200","#ce882c", "#f5f5f5"]);
+//    //features for the dots
+//    var dotWidth = 2,
+//        dotHeight = 2,
+//        dotSpacing = 0.5;
+//
+//
+//    console.log("rows", rows);
+//    //to generate 10 businesses from the category
+//    dataHolder = [];    //introducing it
+//
+//    var countSel = 100;
+//
+//    for (var i = 0; i < countSel; i++) {
+//        random_busi = Math.floor(Math.random() * rows.length)
+//        dataHolder.push(
+//            rows[random_busi])
+//    }
+//    //console.log("dataHolder", dataHolder)
+//
+//    //todo: -------SCALES----------------//
+//    var time_extent = d3.extent(rows, function(d){
+//
+//        return d.Date;
+//    })
+//    console.log("time_extent", time_extent)
+//    var scaleX = d3.time.scale()
+//        .domain(time_extent)
+//        .range([0, canvasWidth]);
+//
+//    Name = dataHolder.map(function(d){
+//        return busiName.get(d.busId);
+//    })
+//    console.log(Name)
+//
+//
+//    var scaleY = d3.scale.ordinal()
+//        .domain(Name)
+//        .rangeBands([0, canvasHeight])
+//    // .range([canvasWidth - padding, padding]);
+//
+//
 //
 //// Define X axis
-//var xAxis = d3.svg.axis()
-//    .scale(scaleX)
-//    .orient("bottom")
-//    .ticks(d3.time.months)
-//    .tickFormat(d3.time.format("%b"));
+//    var xAxis = d3.svg.axis()
+//        .scale(scaleX)
+//        .orient("top")
+//        .ticks(11)
+//        .tickFormat(d3.time.format("%Y"))
 //
 //
 //// Define Y axis
-//var yAxis = d3.svg.axis()
-//    .scale(scaleY)
-//    .orient("left")
-////.ticks(2);
+//    var yAxis = d3.svg.axis()
+//        .scale(scaleY)
+//        .orient("left")
+//        //.tickFormat("");
+//        .innerTickSize(-canvasWidth)
+//        .outerTickSize(0)
+//        .tickPadding(1)
+//    //.tickOpacity(0.3);
 //
 //
-////
-////// SVG canvas
-////var svg = d3.select("#chart")
-////	.append("svg")
-////	.attr("width", width + margin.left + margin.right)
-////	.attr("height", height + margin.top + margin.bottom)
-////	.call(zoom)
-////	.append("g")
-////	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 //
+////-------TODO: COLOR SCALE-------//
+//    var colorScale = d3.scale.linear()
+//        .domain([starsMin, starsMax])
+//        .range(["#c41200", "#ce882c", "#f5f5f5"]);
+//
+//
+//
+//// SVG canvas
+//    //console.log(canvasWidth + margin.left + margin.right, canvasHeight + margin.top + margin.bottom)
+//    var svg = d3.select("#canvas-3")
+//        .append("svg")
+//        .attr("width", (canvasWidth + 2300 ))
+//        .attr("height", (canvasHeight + 40))
+//        .append("g")
+//        .attr("transform", "translate(" + 180 + "," + 40 + ")");
+//
+//
+////todo: -----heat map------//
 //// Clip path
-//svg.append("clipPath")
-//    .attr("id", "clip")
-//    .append("rect")
-//    .attr("width", width)
-//    .attr("height", height);
+//    svg.append("clipPath")
+//        .attr("id", "clip")
+//        .append("rect")
+//        .attr("width", canvasWidth)
+//        .attr("height", canvasHeight);
 //
-//// The Heatmap dots
-//svg.append("g")
-//    .attr("clip-path", "url(#clip)")
-//    .selectAll("ellipse")
-//    .data(dataset)
-//    .enter()
-//    .append("ellipse")
-//    .attr("cx", function(d) { return scaleX(d.Name); })
-//    .attr("cy", function(d) { return scaleY(d.Month); })
-//    .attr("rx", dotWidth)
-//    .attr("ry", dotHeight)
-//    .attr("fill", function(d) { return colorScale(d.Stars); });
+//    console.log(dataHolder);
 //
+//    svg.append("g")
+//        .attr("clip-path", "url(#clip)")
+//        .selectAll("ellipse")
+//        .data(dataHolder)
+//        .enter()
+//        .append("ellipse")
+//        .attr("cx", function (d) {
+//            //console.log(busiName.get(d.busId))
+//            return scaleX(d.Date);
+//        })
+//        .attr("cy", function (d) {
+//            return scaleY(busiName.get(d.busId));
+//
+//        }) // PLOT THE DOT ACCORING TO REVIEW DATE - Color it by star
+//        .attr("rx", function (d) {
+//            return (d.Stars);
+//        })
+//        .attr("ry", function (d) {
+//            return (d.Stars);
+//        })
+//        .attr("fill", function (d) {
+//            return colorScale(d.Stars);
+//        });
+//
+//    //.attr("rx", dotWidth)
+//    //.attr("ry", dotHeight)
+//
+//
+////todo: -----heat map------//
 ////Create X axis
-//svg.append("g")
-//    .attr("class", "x axis")
-//    .attr("transform", "translate(0," + yScale(0) + ")")
-//    .call(xAxis)
+//    svg.append("g")
+//        .attr("class", "x axis")
+//        //.attr("transform", "translate(0,0"  + ")")
+//        //.attr("transform", "translate(0," + (canvasHeight - padding) + ")")
+//        .call(xAxis)
 //
 ////Create Y axis
-//svg.append("g")
-//    .attr("class", "y axis")
-//    .call(yAxis);
+//    svg.append("g")
+//        .attr("class", "y axis")
+//        .call(yAxis);
 //
 //
-//
-//
-//
-//
-//
-//
-////----------Module---//
-//d3.custom.histogram = function(){
-//    var margin = {t:25,r:50,b:25,l:50},
-//        w = 500,//internal variables, can be modified later
-//        h = 300,
-//        chartW = w - margin.l - margin.r,
-//        chartH = h - margin.t - margin.b,
-//        scaleX = d3.scale.linear(),
-//        scaleY = d3.scale.linear(),
-//        dataRange,
-//        layout = d3.layout.histogram();
-//
-//
-//    function exports(_selection){
-//        //@param _selection -> d3 selection of <div> elements
-//        chartW = w - margin.l - margin.r;
-//        chartH = h - margin.t - margin.b;
-//        scaleX.range([0,chartW]);
-//        scaleY.range([chartH,0]);
-//
-//        _selection.each(redraw);
-//    }
-//
-//    function redraw(_data){
-//        //@param _data -> array of data bound to the selection
-//        //"this" -> the selected DOM element
-//
-//        var histData = layout(_data);
-//
-//        //scales and axis
-//        scaleX.domain(dataRange || d3.extent(_data));
-//        scaleY.domain([0,d3.max(histData,function(d){return d.y})]);
-//        var axisX = d3.svg.axis()
-//            .orient('bottom')
-//            .scale(scaleX);
-//
-//        //Ensure the right DOM structure
-//        var svg = d3.select(this).selectAll('svg')
-//            .data([_data]);
-//
-//        //If no <svg> previously appended, append it now
-//        //Also append the nested <g> element(s)
-//        var svgEnter = svg.enter().append('svg').attr({width:w, height:h});
-//        svgEnter
-//            .append('g').attr('class','chart histogram')
-//            .append('g').attr('class','axis axis-x');
-//
-//        var chart = svg.select('.chart')
-//            .attr('transform','translate('+margin.l+','+margin.t+')');
+//}
 
-        //Layers
-        //Bars
-//        var bars = chart.selectAll('.bin')
-//            .data(histData);
-//
-//        bars.enter()
-//            .append('rect')
-//            .attr('class','bin')
-//            .transition()
-//            .call(onTrans);
-//
-//        bars.exit()
-//            .call(onExit);
-//
-//        bars.transition()
-//            .call(onTrans);
-//
-//        //axis
-//        chart.select('.axis-x')
-//            .attr('transform','translate(0,'+chartH+')')
-//            .transition()
-//            .call(axisX);
-//
-//    }
+
+
+
+
+
+
 //    function onEnter(){
 //    }
 //    function onExit(){

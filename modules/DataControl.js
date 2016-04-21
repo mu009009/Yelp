@@ -1,6 +1,10 @@
+
+AveStars = d3.map();
+
 function BussinessDataLoad()
 {
 	busiName = d3.map();
+
 	queue()
 	.defer(d3.csv,'Data/Categories-Yelp.csv',parseTwo)
 	.defer(d3.csv,'Data/yelp-business-sel.csv',parse)
@@ -8,8 +12,67 @@ function BussinessDataLoad()
 	.await(dataLoaded);
 }
 
+//var globalDispatcher = d3.dispatch('statechange');
+
 function dataLoaded(err,Type,Bussiness, Reviews)
 {
+
+
+//	d3.select('.select').on('change',function(){
+//		globalDispatcher.statechange(this.value);
+//	});
+//
+//var svg = d3.select('.container').select('.svg')
+//	.datum(tripsByStation.get('3'))
+//	.call(timeSeriesModule);
+//
+//globalDispatcher.on('stationchange',function(id){
+//	plots.datum(tripsByStation.get(id))
+//		.call(timeSeriesModule);
+//});
+
+	var revi_nest = d3.nest().key(function(d){
+		return d.busId;
+	}).key(function(d){
+		return (new Date(d.Date).getYear())
+		//}).rollup(function(res) {
+		//return {"ave_star": d3.mean(res, function(d) {return res.Stars})}
+	}).entries(Reviews)
+
+
+
+
+	revi_nest.forEach(function(business){
+		business.values.forEach(function(yearbusiness){
+			var sum_stars = 0
+			var count_stars = yearbusiness.values.length;
+			yearbusiness.values.forEach(function(actual_vals){
+				sum_stars = sum_stars + actual_vals.Stars
+			})
+			//console.log("yearbusiness",yearbusiness);
+			var average = sum_stars/count_stars
+			if (average >= 0){
+				yearbusiness.average = sum_stars/count_stars
+				AveStars.set([business.key, yearbusiness.key], yearbusiness.average);
+			}
+
+
+
+		})
+
+	})
+	console.log(AveStars)
+
+	d3.select('#StatesControl')
+		.on('change',function()
+		{
+			console.log(this);
+			console.log(this.value);
+			KeyWord = this.value;
+			DeleteTheDrawPart();
+			DrawHeatMap(Reviews,busiName, AveStars,Bussiness);
+		})
+
 	StatesName = GetStates(Bussiness);
 	StatesName = EffectiveStates();
 	console.log(StatesName);
@@ -21,9 +84,18 @@ function dataLoaded(err,Type,Bussiness, Reviews)
 	GroupArrary = GroupDataArrary(GroupData);
 	DeleteThePiePart();
 	DrawPieChart(GroupArrary);
-	DrawButton(StatesName);
-	console.log(Reviews);
-	DrawHeatMap(Reviews,busiName)
+	//DrawButton(StatesName);
+	//console.log(Reviews);
+	DrawHeatMap(Reviews,busiName, AveStars,Bussiness)
+
+
+
+
+
+
+
+
+
 }
 
 function parse(rows)
@@ -38,14 +110,14 @@ function parse(rows)
 }
 
 function parseReviews(rows) {
-	//busiName.set(rows.business_id, rows.name)
+
 	return {
 		busId: rows.business_id,
 		Stars: +rows.stars,
 		Date: new Date(rows.date),
 		month: new Date(rows.date).getMonth()
 }
-console.log("date",Date);
+//console.log("date",Date);
 }
 
 
@@ -214,4 +286,12 @@ function GetStates(Business)
 
 	TemporyDataRecord.shift();
 	return TemporyDataRecord;
+}
+
+function DeleteTheDrawPart()
+{
+	d3.select('#HeatMapsvg')
+		.remove();
+
+	return null;
 }
