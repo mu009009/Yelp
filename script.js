@@ -30,48 +30,46 @@ KeyWord = "All";
 BussinessDataLoad();
 
 
-yearslist = ["105", "106", "107", "108", "109","110", "111", "112", "113", "114", "115"];
+
 //TODO:-------------------------------------  HEAT MAP  ---------------------------------------//
 
+//Setting up and importing the data
+yearslist = ["105", "106", "107", "108", "109","110", "111", "112", "113", "114", "115"];
+
 function DrawHeatMap(rows, busiName, AveStars,Bussiness) {
+    console.log("Bussiness",Bussiness);
 
 
-    console.log(Bussiness);
-
-    //todo:-----------STEP UP-----------//
-    //setting up the min and max for the color scale // that will relate to the STARS connected reviews
+//setting up the min and max for the color scale // that will relate to the STARS connected reviews
     var starsMin = d3.min(rows, function (d) {
             return d.Stars; }),
         starsMax = d3.max(rows, function (d) {
             return d.Stars; });
 
 
-    //features for the dots
+//features for the dots -- if needed (this was before I decided to use Star min and max for the R)
     var dotWidth = 7,
         dotHeight = 7,
-    //    dotSpacing = 0.5;
 
-average_vals = AveStars.entries()
 
-//
-
-    console.log("AveStars",AveStars)
+//setting us the average stars calculator
+average_vals = AveStars.entries()       //average values
+console.log("AveStars",AveStars)
 console.log("rows", rows);
-    //to generate 10 businesses from the category
+
+
+//to generate 80 businesses from the category
     dataHolder = [];    //introducing it
     aver_start_data = []
-    var countSel = 80;
+    var countSel = 80;              //the number we want displayed
 
+//connecting the first scroll down tab
     for (var i = 0; i < countSel; i++) {
         random_busi = Math.floor(Math.random() * rows.length)
-        if(KeyWord!="All")
-        {
-            for(var z=0;z<Bussiness.length;z++)
-            {
-                if(rows[random_busi].busId == Bussiness[z].BusinessId)
-                {
-                    if(Bussiness[z].States == KeyWord)
-                    {
+        if(KeyWord!="All") {
+            for(var z=0;z<Bussiness.length;z++) {
+                if(rows[random_busi].busId == Bussiness[z].BusinessId) {
+                    if(Bussiness[z].States == KeyWord) {
                         dataHolder.push(
                             rows[random_busi]);
                         console.log(rows[random_busi]);
@@ -92,11 +90,14 @@ console.log("rows", rows);
             dataHolder.push(
             rows[random_busi])
         }
+
         //console.log(rows[random_busi]);
     }
 
+    //Data holder basically holds the average stars, the year, buisnesess ID, and the dates associcated with the stars
     dataHolder.forEach(function(d){
         console.log("dataholder", d)
+
         var busId = d.busId;
         yearslist.forEach(function(yearstr){
             var aver_str = AveStars.get([d.busId, yearstr]);
@@ -109,54 +110,37 @@ console.log("rows", rows);
 
     })
     console.log("aver_start_data",aver_start_data)
-    //aveStar = [];
-    //
-    //var ave =
-    //
-    //function meanStar(busiName) {
-    //    return d3.mean(rows, function(d) {return d [Stars] })
-    //    }
-    //
-    //var meanStarRate = meanStar('programming');
 
 
-    //todo: -------SCALES----------------//
+//todo: -------SCALES----------------//
     var time_extent = d3.extent(rows, function(d){
         return d.Date;
 
     })
     console.log("canvasWidth",canvasWidth)
     console.log("time_extent", time_extent)
-    //var scaleX = d3.time.scale()
-    //    .domain(time_extent)
-    //    .range([0, canvasWidth]);
 
 
-
+//Setting up X and Y scale
     var scaleX = d3.scale.ordinal()
         .domain(yearslist)
         //.text("Keyword")
         .rangePoints([0, canvasWidth]);
 
 
-
     Name = dataHolder.map(function(d){
         //return AveStars.get(d.Stars);
         return busiName.get(d.busId);
-        //return AveStars.get(d.Stars, d.Date) && busiName.get(d.busId);
     })
-    console.log(Name)
+    console.log("name",Name);
 
 
     var scaleY = d3.scale.ordinal()
         .domain(Name)
-       // .rangeBands([0, canvasHeight])
-        .rangePoints([0, canvasHeight - 150])
-       // .range([canvasWidth - padding, padding]);
+              .rangePoints([0, canvasHeight - 150])
 
 
-
-// Define X axis
+//Setting up the axis related to the scales
     var xAxis = d3.svg.axis()
         .scale(scaleX)
         .orient("top")
@@ -167,7 +151,7 @@ console.log("rows", rows);
         })
 
 
-// Define Y axis
+
     var yAxis = d3.svg.axis()
         .scale(scaleY)
         .orient("left")
@@ -179,15 +163,14 @@ console.log("rows", rows);
 
 
 
-//-------TODO: COLOR SCALE-------//
+//TODO:------------------ COLOR SCALE------------------------//
     var colorScale = d3.scale.linear()
         .domain([starsMin, starsMax])
         .range(["#33A1C9", "#DC143C"]);
 
 
 
-// SVG canvas
-    //console.log(canvasWidth + margin.left + margin.right, canvasHeight + margin.top + margin.bottom)
+// SVG canvas for the drawing of the heatmap
     var svg = d3.select("#canvas-3")
         .append("svg")
         .attr("id","HeatMapsvg")
@@ -196,61 +179,49 @@ console.log("rows", rows);
         .append("g")
         .attr("transform", "translate(" + 200 + "," + 20 + ")");
 
-//Create X axis
+//Drawing the axis inside the appended SVG
     svg.append("g")
         .attr("class", "x axis")
-        //.attr("transform", "translate(0,0"  + ")")
-        //.attr("transform", "translate(0," + (canvasHeight - padding) + ")")
         .call(xAxis)
 
-//Create Y axis
+
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis)
 
 
-    //d3.select('#x axis')
-    //    .selectAll('text')
-    //    .each(function(d,i){ insertLinebreaks(this, d, x1.rangeBand()*2 ); });
-
-
-//todo: -----heat map------//
-// Clip path
+// Clip path basically stops the appended circles from being drawn ON the axis.. but We like the way the look normal.
 //    svg.append("clipPath")
 //        .attr("id", "clip")
 //        .append("rect")
 //        .attr("width", canvasWidth)
 //        .attr("height", canvasHeight);
 
-    console.log(dataHolder);
+    console.log("dateHolder" ,dataHolder);
 
+    //appending the G where we draw the heatmap with it's circles
     svg.append("g")
         .attr("clip-path", "url(#clip)")
         .selectAll("ellipse")
         .data(aver_start_data)
         .enter()
+
         .append("ellipse").call(attachTooltip)
         .attr("cx", function (d) {
             //console.log(busiName.get(d.busId))
             //console.log(scaleX(d.year))
             return scaleX(d.year);
 
-            //var id = d.properties.aver_str;
-            //var aver_start_data  = average_star.get(aver_str);
         })
         .attr("cy", function (d) {
             //return scaleY(AveStars.get(yearbusiness.average));
            return scaleY(busiName.get(d.busId));
            // console.log(AveStars.get([d.busId, new Date(d.Date).getYear()]))
            //return scaleY();
-
            //return scaleY(AveStars.get([Bussiness.business_id, new Date(d.Date).getYear()]));
            //return scaleY(AveStars.get(d.Stars, d.Date));//
 
         })
-
-        // PLOT THE DOT ACCORING TO REVIEW DATE - Color it by star
-
 
         //.attr("rx", dotHeight)
         //})
@@ -263,33 +234,24 @@ console.log("rows", rows);
             return 1.5*(d.average_star);
         })
 
-        .attr("fill", function (d) {
-            return colorScale(d.average_star);
-        });
-
-        //.attr("rx", dotWidth)
-        //.attr("ry", dotHeight)
-
-
-//todo: -----heat map------//
+        .attr("fill", "#DC143C");//to make the color uniform
+        //.attr("fill", function (d) {
+        //    return colorScale(d.average_star);
+        //});
 
 
 
-    //todo: -----tooltip------//
+//todo: ------------------tooltip--------------------------//
     function attachTooltip(selection) {
         selection
             .on('mouseenter', function (d) {
                 var tooltip = d3.select('.custom-tooltip');
-                console.log(tooltip, d)
+                console.log(tooltip, d);
                 tooltip
                     .transition()
                     .style('opacity', 1);
 
                 tooltip.select('#aver_str').html(d.average_star);
-                //tooltip.select('#perc').html(state_perc.get(d.properties.NAME));
-                //tooltip.select('#guns').html(state_guns.get(d.properties.NAME));
-                //tooltip.select('#country').html(state_country.get(d.properties.NAME));
-
             })
             .on('mousemove', function () {
                 var yx = d3.mouse(svg.node());
