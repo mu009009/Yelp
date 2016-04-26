@@ -82,19 +82,12 @@ function dataLoaded(err,Type,Bussiness, Reviews)
 	GroupData = NestGroupData(TypeData);
 	//console.log(GroupData);
 	GroupArrary = GroupDataArrary(GroupData);
+	DrawTimeS(Reviews,Bussiness);
 	DeleteThePiePart();
-	DrawPieChart(GroupArrary);
+//	DrawPieChart(GroupArrary);
 	//DrawButton(StatesName);
 	//console.log(Reviews);
 	DrawHeatMap(Reviews,busiName, AveStars,Bussiness)
-
-
-
-
-
-
-
-
 
 }
 
