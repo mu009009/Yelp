@@ -27,6 +27,8 @@
  StatesName = null;
 
 KeyWord = "All";
+KeyWord2 = "All";
+
 BussinessDataLoad();
 
 
@@ -36,7 +38,7 @@ BussinessDataLoad();
 //Setting up and importing the data
 yearslist = ["105", "106", "107", "108", "109","110", "111", "112", "113", "114", "115"];
 
-function DrawHeatMap(rows, busiName, AveStars,Bussiness) {
+function DrawHeatMap(rows, busiName, AveStars,Bussiness,Type) {
     console.log("Bussiness",Bussiness);
 
 
@@ -61,38 +63,71 @@ console.log("rows", rows);
 //to generate 80 businesses from the category
     dataHolder = [];    //introducing it
     aver_start_data = []
-    var countSel = 80;              //the number we want displayed
+    var countSel = 40;              //the number we want displayed
 
 //connecting the first scroll down tab
     for (var i = 0; i < countSel; i++) {
         random_busi = Math.floor(Math.random() * rows.length)
-        if(KeyWord!="All") {
-            for(var z=0;z<Bussiness.length;z++) {
-                if(rows[random_busi].busId == Bussiness[z].BusinessId) {
-                    if(Bussiness[z].States == KeyWord) {
-                        dataHolder.push(
-                            rows[random_busi]);
-                        console.log(rows[random_busi]);
-                        console.log(Bussiness[z].States);
+        if (KeyWord != "All") {
+            if(KeyWord2!="All") {
+                for(var m=0;m<Bussiness.length;m++) {
+                    if(rows[random_busi].busId == Bussiness[m].BusinessId) {
+                        if (Bussiness[m].States == KeyWord)
+                        {
+                            for(var j=0;j<Bussiness[m].Categories.length;j++)
+                            {
+                                var GroupName = null;
+                                GroupName = CheckCategoryToGroup(Bussiness[m].Categories[j],Type);
+                                console.log(GroupName);
 
-                        break;
+                                if(GroupName == KeyWord2) {
+                                    dataHolder.push(
+                                        rows[random_busi]);
+
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            i = i - 1;
+                            break;
+                        }
                     }
-                    else
-                    {
-                        i=i-1;
-                        break;
+                }
+            }
+            else
+            {
+                for (var z = 0; z < Bussiness.length; z++) {
+                    if (rows[random_busi].busId == Bussiness[z].BusinessId) {
+                        if (Bussiness[z].States == KeyWord) {
+                            dataHolder.push(
+                                rows[random_busi]);
+                            console.log(rows[random_busi]);
+                            console.log(Bussiness[z].States);
+
+                            break;
+                        }
+                        else {
+                            i = i - 1;
+                            break;
+                        }
                     }
                 }
             }
         }
-        else
-        {
+        else {
             dataHolder.push(
-            rows[random_busi])
+                rows[random_busi])
         }
 
-        //console.log(rows[random_busi]);
     }
+//Connecting it to the second scroll down
+//        for (var m = 0; m < countSel; m++) {
+//            random_busi = Math.floor(Math.random() * rows.length)
+//}
+
+
+        //console.log(rows[random_busi]);}
 
     //Data holder basically holds the average stars, the year, buisnesess ID, and the dates associcated with the stars
     dataHolder.forEach(function(d){
@@ -125,7 +160,7 @@ console.log("rows", rows);
     var scaleX = d3.scale.ordinal()
         .domain(yearslist)
         //.text("Keyword")
-        .rangePoints([0, canvasWidth]);
+        .rangePoints([0, canvasWidth/2]);
 
 
     Name = dataHolder.map(function(d){
@@ -156,7 +191,7 @@ console.log("rows", rows);
         .scale(scaleY)
         .orient("left")
         //.tickFormat("");
-        .innerTickSize(-canvasWidth)
+        .innerTickSize(-canvasWidth/2)
         .outerTickSize(0)
         .tickPadding(8)
 
@@ -208,14 +243,15 @@ console.log("rows", rows);
 
         .append("ellipse").call(attachTooltip)
         .attr("cx", function (d) {
-            //console.log(busiName.get(d.busId))
-            //console.log(scaleX(d.year))
             return scaleX(d.year);
-
         })
+        //console.log(busiName.get(d.busId))
+        //console.log(scaleX(d.year))
+
+
         .attr("cy", function (d) {
-            //return scaleY(AveStars.get(yearbusiness.average));
            return scaleY(busiName.get(d.busId));
+            //return scaleY(AveStars.get(yearbusiness.average));
            // console.log(AveStars.get([d.busId, new Date(d.Date).getYear()]))
            //return scaleY();
            //return scaleY(AveStars.get([Bussiness.business_id, new Date(d.Date).getYear()]));
@@ -224,20 +260,18 @@ console.log("rows", rows);
         })
 
         //.attr("rx", dotHeight)
-        //})
         .attr("rx", function (d) {
             return 1.5*(d.average_star);
         })
         //.attr("ry", dotWidth)
-        //})
         .attr("ry", function (d) {
             return 1.5*(d.average_star);
         })
 
         .attr("fill", "#DC143C");//to make the color uniform
-        //.attr("fill", function (d) {
-        //    return colorScale(d.average_star);
-        //});
+       // .attr("fill", function (d) {
+       //     return colorScale(d.average_star);
+       // });
 
 
 

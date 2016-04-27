@@ -8,6 +8,7 @@ function BussinessDataLoad()
 	queue()
 	.defer(d3.csv,'Data/Categories-Yelp.csv',parseTwo)
 	.defer(d3.csv,'Data/yelp-business-sel.csv',parse)
+	//.defer(d3.csv,'sample_reviews.csv',parseReviews)
 	.defer(d3.csv,'Data/yelp-reviews-sel.csv',parseReviews)
 	.await(dataLoaded);
 }
@@ -18,19 +19,6 @@ function dataLoaded(err,Type,Bussiness, Reviews)
 {
 
 
-//	d3.select('.select').on('change',function(){
-//		globalDispatcher.statechange(this.value);
-//	});
-//
-//var svg = d3.select('.container').select('.svg')
-//	.datum(tripsByStation.get('3'))
-//	.call(timeSeriesModule);
-//
-//globalDispatcher.on('stationchange',function(id){
-//	plots.datum(tripsByStation.get(id))
-//		.call(timeSeriesModule);
-//});
-
 	var revi_nest = d3.nest().key(function(d){
 		return d.busId;
 	}).key(function(d){
@@ -38,8 +26,6 @@ function dataLoaded(err,Type,Bussiness, Reviews)
 		//}).rollup(function(res) {
 		//return {"ave_star": d3.mean(res, function(d) {return res.Stars})}
 	}).entries(Reviews)
-
-
 
 
 	revi_nest.forEach(function(business){
@@ -70,8 +56,19 @@ function dataLoaded(err,Type,Bussiness, Reviews)
 			console.log(this.value);
 			KeyWord = this.value;
 			DeleteTheDrawPart();
-			DrawHeatMap(Reviews,busiName, AveStars,Bussiness);
+			DrawHeatMap(Reviews,busiName, AveStars,Bussiness,Type);
 		})
+
+	d3.select('#CategoryControl')
+		.on('change',function()
+		{
+			console.log(this);
+			console.log(this.value);
+			KeyWord2 = this.value;
+			DeleteTheDrawPart();
+			DrawHeatMap(Reviews,busiName, AveStars,Bussiness,Type);
+		})
+
 
 	StatesName = GetStates(Bussiness);
 	StatesName = EffectiveStates();
@@ -87,7 +84,7 @@ function dataLoaded(err,Type,Bussiness, Reviews)
 //	DrawPieChart(GroupArrary);
 	//DrawButton(StatesName);
 	//console.log(Reviews);
-	DrawHeatMap(Reviews,busiName, AveStars,Bussiness)
+	DrawHeatMap(Reviews,busiName, AveStars,Bussiness,Type)
 
 }
 
@@ -281,10 +278,32 @@ function GetStates(Business)
 	return TemporyDataRecord;
 }
 
+
+
+
+
 function DeleteTheDrawPart()
 {
 	d3.select('#HeatMapsvg')
 		.remove();
 
 	return null;
+}
+
+
+function CheckCategoryToGroup(Category,Type)
+{
+	var TypeName = null;
+	var JudgeString = '"'+Category+'"';
+	for(var i=0;i<Type.length;i++)
+	{
+		if(JudgeString == Type[i].BussinessCategory)
+		{
+			TypeName = Type[i].BussinessGroup;
+			break;
+		}
+	}
+
+	console.log(TypeName);
+	return TypeName;
 }
