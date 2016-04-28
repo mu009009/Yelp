@@ -1,0 +1,122 @@
+<head>
+    <meta charset="utf-8">
+    <title>Yelp!</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="global.css">
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="node_modules/lib/queue/queue.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="node_modules/tooltip.js" charset="utf-8"></script>
+    <script src="lib/crossfilter/crossfilter.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <h1>Yelp! Businesses Over Time</h1>
+    <div class="section">
+        <p>
+            Just a few years ago, we would never have thought that we would be asking total stranger on the internet their
+            reconditions on restaurants, hotels, stores, pet services, etc. But, with the our growing dependency on our
+            smartphones in general, and the apps within them in specificity, that is exactly what is happening. Over the
+            past couple of years, there have been many different apps that were developed for different business
+            recommendations across the US, but, Yelp has become one of the forth runner of this particular app style.
+            “Yelp it” has become a phrase that we all use in our daily lives when faced with the hassle of making a decision
+            for what to do or where to go. Yelp has simply become our saving grace and trusted allay even when we travel to a
+            country who's language we don't speak.</p>
+		
+		<p>
+            Those interactive visualizations were done during a D3 class in the Information Design and Visualization MFA
+            program in Northeastern University under the mentorship of Siqi Zhu by students Maaria Assami and Xiaxin Chen.
+            Both visualizations are based on data published by “Yelp” and aims to explore two things, mapping how review-traffic
+            changes within different individual states, along with how Yelp’s famous star ratting changes over the 10 years
+            timeframe for each business establishment within those states.
+        </p>
+    </div>
+    <div class="canvas" id="canvas-1">
+        <div class="canvas-1" id="plot" >
+            <h3>Trends in review traffic</h3>
+            <div class="section">
+                <p>The first interactive visualization shows the overall trend of how many reviews are being published using the
+                    app overtime, and with that, it generally shows how active, or not, those app users are over time. Hovering over
+                    a specific moment in time on the line graph will automatically show how active, again or not, all the other
+                    states are being in that exact time.</p>
+
+                <p>Noteworthy to mention, the x axis for the different states differ due to the vast differences in review numbers
+                    in the different states. Again, the aim of this visualization is to show the overall trend of review traffics,
+                    if they are on the rise, or if they are plummeting, etc., and not to compare the exact numbers or reviews in each
+                    state. Also, choosing a specific category of businesses from the scroll menu below will help filter the reviews to
+                    fit that exact business category, too.
+                </p>
+                <p>**Visualization might take time to load due to the data's huge size**</p>
+            </div>
+        </div>
+
+        <div class="plot">
+        </div>
+    </div>
+    <div class="section">
+        <h4>Its all about the ratings</h4>
+
+        <p>The next visualization aims to explore how Yelp’s famous five star ratings change overtime for each business. First,
+            40 random businesses from all over the states are randomly selected for a general view, but, specific state and
+            category selection is possible to narrow down the search. Each dot represents the average number of stars that
+            business has during that specific year, and hovering over it with the mouse will display the number on the tooltip.</p>
+
+        <p>**Visualization might take time to load due to the data's huge size**</p>
+        </br>
+    </div>
+    <div class="canvas" id="canvas-3">
+        <div class="controls clearfix">
+            <!--<div class="controls">-->
+            <!--<select class="station-list">-->
+            </select>
+            <div class="control-module drop-down">
+                <div class="select">
+                    <span>State:</span>
+                    <select class="form-control State" id="StatesControl">
+                        <option value="All">All</option>
+                        <option value="PA">PA</option>
+                        <option value="NC">NC</option>
+                        <option value="SC">SC</option>
+                        <option value="WI">WI</option>
+                        <option value="IL">IL</option>
+                        <option value="AZ">AZ</option>
+                        <option value="NV">NV</option>
+                        <option value="QC">QC</option></select></div>
+                <div class="controls clearfix">
+                    <div class="control-module drop-down">
+                        <div class="select"></div>
+                        <span>Category:</span>
+                        <select class="form-control Category" id="CategoryControl">
+                            <option value="All">All</option>
+                            <option value="Auto">Auto</option>
+                            <option value="Nightlife">Nightlife</option>
+                            <option value="Health">Health</option>
+                            <option value="Arts,Entertainment&Events">Arts,Entertainment&Events</option>
+                            <option value="Restaurants">Restaurants</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Education">Education</option>
+                            <option value="Education">Travel & Hotel</option>
+                            <option value="Home & Local Services">Home & Local Services</option>
+                            <option value="other">other</option></select></div></div></div>
+        </div>
+        <img src="assests/Legend-01-01.png" alt="Legnd" />
+        <div class="custom-tooltip"> <!--- where we pull the tool tip from-->
+            <p>Star Average:</p> <span id="aver_str"></span>
+            <span id="aver_str"></span>
+        </div>
+    </div>
+    <p>In the end, this project was done to explore the data that was published by the app itself and not to take a stance or
+        display a specific result or trend over time. </p>
+</div>
+<script src="modules/Timeseries.js"></script>
+<script src="modules/DrawTimeSeries.js"></script>
+<script src="modules/Button.js"></script>
+<script src="modules/DeleteTheExist.js"></script>
+<script src="modules/DrawPieChart.js"></script>
+<script src="modules/DataControl.js"></script>
+<script src="modules/heatMap.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
