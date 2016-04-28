@@ -1,30 +1,29 @@
 
-
 //---------Setting up the canvas --------------//
- canvas0Width = document.getElementById('canvas-1').clientWidth,
+canvas0Width = document.getElementById('canvas-1').clientWidth,
     canvas0Height = document.getElementById('canvas-1').clientHeight;
 
- canvas3Width = document.getElementById('canvas-3').clientWidth,
+canvas3Width = document.getElementById('canvas-3').clientWidth,
     canvas3Height = document.getElementById('canvas-3').clientHeight;
 
- margin = {t: 10, r: 150, b: 150, l: 160};
- plotWidth = canvas0Width - margin.l - margin.r,
+margin = {t: 10, r: 150, b: 150, l: 160};
+plotWidth = canvas0Width - margin.l - margin.r,
     plotHeight = canvas0Height - margin.t - margin.b;
 
- canvasWidth = canvas3Width - margin.l - margin.r,
+canvasWidth = canvas3Width - margin.l - margin.r,
     canvasHeight = (canvas3Height - margin.t - [margin.b]) ;
 
 //var padding = 100;
 
 
 //console.log(canvasWidth, canvasHeight)
- CategoriesDataRecord = [null];
- CategoriesNumberArrary = [null];
- TypeData = null;
- GroupData = null;
- GroupArrary = null;
- //KeyWord = null;
- StatesName = null;
+CategoriesDataRecord = [null];
+CategoriesNumberArrary = [null];
+TypeData = null;
+GroupData = null;
+GroupArrary = null;
+//KeyWord = null;
+StatesName = null;
 
 KeyWord = "All";
 KeyWord2 = "All";
@@ -55,9 +54,9 @@ function DrawHeatMap(rows, busiName, AveStars,Bussiness,Type) {
 
 
 //setting us the average stars calculator
-average_vals = AveStars.entries()       //average values
-console.log("AveStars",AveStars)
-console.log("rows", rows);
+        average_vals = AveStars.entries()       //average values
+    console.log("AveStars",AveStars)
+    console.log("rows", rows);
 
 
 //to generate 80 businesses from the category
@@ -127,7 +126,7 @@ console.log("rows", rows);
 //}
 
 
-        //console.log(rows[random_busi]);}
+    //console.log(rows[random_busi]);}
 
     //Data holder basically holds the average stars, the year, buisnesess ID, and the dates associcated with the stars
     dataHolder.forEach(function(d){
@@ -136,10 +135,10 @@ console.log("rows", rows);
         var busId = d.busId;
         yearslist.forEach(function(yearstr){
             var aver_str = AveStars.get([d.busId, yearstr]);
-           if(aver_str >= 0){
-               //console.log("aver_str", aver_str)
-               aver_start_data.push({"busId": d.busId, "year": yearstr, "average_star": aver_str})
-           }
+            if(aver_str >= 0){
+                //console.log("aver_str", aver_str)
+                aver_start_data.push({"busId": d.busId, "year": yearstr, "average_star": aver_str})
+            }
 
         })
 
@@ -160,7 +159,7 @@ console.log("rows", rows);
     var scaleX = d3.scale.ordinal()
         .domain(yearslist)
         //.text("Keyword")
-        .rangePoints([0, canvasWidth/2]);
+        .rangePoints([0, canvasWidth/2.2]);
 
 
     Name = dataHolder.map(function(d){
@@ -172,7 +171,7 @@ console.log("rows", rows);
 
     var scaleY = d3.scale.ordinal()
         .domain(Name)
-              .rangePoints([0, canvasHeight - 150])
+        .rangePoints([0, canvasHeight - 150])
 
 
 //Setting up the axis related to the scales
@@ -191,7 +190,7 @@ console.log("rows", rows);
         .scale(scaleY)
         .orient("left")
         //.tickFormat("");
-        .innerTickSize(-canvasWidth/2)
+        .innerTickSize(-canvasWidth/2.2)
         .outerTickSize(0)
         .tickPadding(8)
 
@@ -212,7 +211,7 @@ console.log("rows", rows);
         .attr("width", ((canvasWidth ) + 320 ))
         .attr("height", ((canvasHeight) + 40))
         .append("g")
-        .attr("transform", "translate(" + 200 + "," + 20 + ")");
+        .attr("transform", "translate(" + 350 + "," + 20 + ")");
 
 //Drawing the axis inside the appended SVG
     svg.append("g")
@@ -250,12 +249,12 @@ console.log("rows", rows);
 
 
         .attr("cy", function (d) {
-           return scaleY(busiName.get(d.busId));
+            return scaleY(busiName.get(d.busId));
             //return scaleY(AveStars.get(yearbusiness.average));
-           // console.log(AveStars.get([d.busId, new Date(d.Date).getYear()]))
-           //return scaleY();
-           //return scaleY(AveStars.get([Bussiness.business_id, new Date(d.Date).getYear()]));
-           //return scaleY(AveStars.get(d.Stars, d.Date));//
+            // console.log(AveStars.get([d.busId, new Date(d.Date).getYear()]))
+            //return scaleY();
+            //return scaleY(AveStars.get([Bussiness.business_id, new Date(d.Date).getYear()]));
+            //return scaleY(AveStars.get(d.Stars, d.Date));//
 
         })
 
@@ -268,11 +267,12 @@ console.log("rows", rows);
             return 1.5*(d.average_star);
         })
 
-        .attr("fill", "#DC143C");//to make the color uniform
-       // .attr("fill", function (d) {
-       //     return colorScale(d.average_star);
-       // });
+        .attr("fill", "#c41200");//to make the color uniform
+    // .attr("fill", function (d) {
+    //     return colorScale(d.average_star);
+    // });
 
+    //YELP COLOR RED = #c41200
 
 
 //todo: ------------------tooltip--------------------------//
@@ -281,6 +281,7 @@ console.log("rows", rows);
             .on('mouseenter', function (d) {
                 var tooltip = d3.select('.custom-tooltip');
                 console.log(tooltip, d);
+
                 tooltip
                     .transition()
                     .style('opacity', 1);
@@ -293,8 +294,8 @@ console.log("rows", rows);
                 var tooltip = d3.select('.custom-tooltip');
 
                 tooltip
-                    .style('left', yx[0] )
-                    .style('top', yx[1] );
+                    .style('left', yx[0])
+                    .style('top', yx[1]);
             })
             .on('mouseleave', function () {
                 var tooltip = d3.select('.custom-tooltip')
@@ -304,6 +305,3 @@ console.log("rows", rows);
     }
 
 }
-
-
-
