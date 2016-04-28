@@ -286,7 +286,7 @@ function DrawHeatMap(rows, busiName, AveStars,Bussiness,Type) {
                     .transition()
                     .style('opacity', 1);
 
-                tooltip.select('#aver_str').html(d.average_star);
+                tooltip.select('#aver_str').html(d.average_star.toFixed(1));
             })
             .on('mousemove', function () {
                 var xy = d3.mouse(svg.node());

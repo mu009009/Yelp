@@ -162,13 +162,13 @@ h1{
     position: relative;
 
     /* border:1px solid darkslategray; */
-    /*background:white;  /!*WE USE BACKGROUND not FILL.. because its html--> *!/*/
-    background: red;
+    background:white;  /*WE USE BACKGROUND not FILL.. because its html--> */
+    /*background: red;*/
     opacity: 0.3;
-    width:150px;
+    /*width:150px;*/
     font-size: 18px;
     /*min-height:10px;*/
-    padding:2px 2px;
-    border-radius:5px; /* HOW circular we want the edges of the square */
+    /*padding:2px 2px;*/
+    /*border-radius:5px; /!* HOW circular we want the edges of the square *!/*/
 
 }
