@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e55d318-4641-46ee-8042-f71a0d3e405f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/DataControl.js" afterPath="$PROJECT_DIR$/modules/DataControl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/DrawTimeSeries.js" afterPath="$PROJECT_DIR$/modules/DrawTimeSeries.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/Timeseries.js" afterPath="$PROJECT_DIR$/modules/Timeseries.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script.js" afterPath="$PROJECT_DIR$/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/style.css" afterPath="$PROJECT_DIR$/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="yelp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-26.416666">
-              <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6858006">
+              <caret line="49" column="20" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -69,10 +63,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DrawTimeSeries.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DrawTimeSeries.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/DrawTimeSeries.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17151164">
+            <state vertical-scroll-proportion="0.0">
               <caret line="154" column="36" selection-start-line="154" selection-start-column="36" selection-end-line="154" selection-end-column="36" />
               <folding />
             </state>
@@ -112,12 +106,12 @@
         <option value="$PROJECT_DIR$/modules/DrawPieChart.js" />
         <option value="$PROJECT_DIR$/modules/Button.js" />
         <option value="$PROJECT_DIR$/modules/heatmap.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/modules/DataControl.js" />
         <option value="$PROJECT_DIR$/script.js" />
         <option value="$PROJECT_DIR$/modules/Timeseries.js" />
         <option value="$PROJECT_DIR$/modules/DrawTimeSeries.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -212,7 +206,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Yelp3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../NEU/Year 1/Spring Semester/D3/6900-week-8" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -676,14 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-26.416666">
-          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -718,8 +704,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/DrawTimeSeries.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17151164">
+        <state vertical-scroll-proportion="0.0">
           <caret line="154" column="36" selection-start-line="154" selection-start-column="36" selection-end-line="154" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6858006">
+          <caret line="49" column="20" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
           <folding />
         </state>
       </provider>
