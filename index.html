@@ -15,8 +15,7 @@
 <div class="container">
     <h1>Yelp! Businesses Over Time</h1>
     <div class="section">
-        <p>
-            Just a few years ago, we would never have thought that we would be asking total stranger on the internet their
+        <p>    Just a few years ago, we would never have thought that we would be asking total stranger on the internet their
             reconditions on restaurants, hotels, stores, pet services, etc. But, with the our growing dependency on our
             smartphones in general, and the apps within them in specificity, that is exactly what is happening. Over the
             past couple of years, there have been many different apps that were developed for different business
@@ -55,19 +54,19 @@
         <div class="plot">
         </div>
     </div>
-    <div class="section">
-        <h4>Its all about the reviews</h4>
+    <div class="section2">
+        <h4>Its all about the ratings</h4>
 
         <p>The next visualization aims to explore how Yelp’s famous five star ratings change overtime for each business. First,
             40 random businesses from all over the states are randomly selected for a general view, but, specific state and
             category selection is possible to narrow down the search. Each dot represents the average number of stars that
             business has during that specific year, and hovering over it with the mouse will display the number on the tooltip.</p>
 
-        <p>**Visualization might take time to load due to the data's huge size**</p>
+        <p>–Visualization might take time to load due to the data's huge size–</p>
         </br>
     </div>
     <div class="canvas" id="canvas-3">
-        <div class="controls clearfix">
+        < class="controls clearfix">
             <!--<div class="controls">-->
             <!--<select class="station-list">-->
             </select>
@@ -88,7 +87,7 @@
                     <div class="control-module drop-down">
                         <div class="select"></div>
                         <span>Category:</span>
-                        <select class="form-control Category">
+                        <select class="form-control Category"  id="CategoryControl">
                             <option value="All">All</option>
                             <option value="Auto">Auto</option>
                             <option value="Nightlife">Nightlife</option>
@@ -100,10 +99,11 @@
                             <option value="Education">Travel & Hotel</option>
                             <option value="Home & Local Services">Home & Local Services</option>
                             <option value="other">other</option></select></div></div></div>
-        </div>
+
+
         <img src="assests/Legend-01-01.png" alt="Legnd" />
         <div class="custom-tooltip"> <!--- where we pull the tool tip from-->
-            <p>Star Average that Year:</p> <span id="aver_str"></span>
+            <p>Star Average:</p>
             <span id="aver_str"></span>
         </div>
     </div>

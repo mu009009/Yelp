@@ -1,28 +1,41 @@
 html,body,div,ul,li,svg{
     margin:0;
-    padding: 0px;
+    padding: 0;
     list-style:none;
 }
 
 p{
-    width: 50%;
+    width: 40%;
     font-size: 12px;
+    margin-right:0;
+
     /*padding-bottom: 100px;*/
     /*float: left;*/
     padding-right: 20px;
-    font-family: font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: font-family, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /*float: left;*/
 }
 
 
 
 
+.bottom1{
+    width: 40%;
+    float: inherit;
+   /*padding-left: 100px;*/
+}
+
+.top1{
+    width: 40%;
+    float: left;
+}
 
 h3{
     font-size: 20px;
     /*position: fixed;*/
     padding-right: 100px;
     width: 100%;
-    font-family: font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: font-family, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 }
 
@@ -31,14 +44,17 @@ h4{
     /*position: fixed;*/
     padding-right: 100px;
     width: 100%;
-    font-family: font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: font-family, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 
-section{
-    height: 1000px;
+.section{
+font-size: 30px;
 }
 
+.section2{
+    font-size: 50px;
+}
 /*------------Global-------------*/
 html,body{
     height: 100%;
@@ -104,7 +120,7 @@ img{
 /*------------font-------------*/
 
 h1{
-    font-family:font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:font-family,'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 39px;
     font-style: normal;
     font-variant: normal;
@@ -146,11 +162,12 @@ h1{
     position: relative;
 
     /* border:1px solid darkslategray; */
-    background:white;  /*WE USE BACKGROUND not FILL.. because its html--> */
+    /*background:white;  /!*WE USE BACKGROUND not FILL.. because its html--> *!/*/
+    background: red;
     opacity: 0.3;
-    width:170px;
-    font-size: 15px;
-    min-height:10px;
+    width:150px;
+    font-size: 18px;
+    /*min-height:10px;*/
     padding:2px 2px;
     border-radius:5px; /* HOW circular we want the edges of the square */
 

@@ -280,7 +280,7 @@ function DrawHeatMap(rows, busiName, AveStars,Bussiness,Type) {
         selection
             .on('mouseenter', function (d) {
                 var tooltip = d3.select('.custom-tooltip');
-                console.log(tooltip, d);
+                //console.log(tooltip, d);
 
                 tooltip
                     .transition()
@@ -289,19 +289,21 @@ function DrawHeatMap(rows, busiName, AveStars,Bussiness,Type) {
                 tooltip.select('#aver_str').html(d.average_star);
             })
             .on('mousemove', function () {
-                var yx = d3.mouse(svg.node());
+                var xy = d3.mouse(svg.node());
 
                 var tooltip = d3.select('.custom-tooltip');
 
                 tooltip
-                    .style('left', yx[0])
-                    .style('top', yx[1]);
+                    .style('left', xy[0] + 380 + 'px')
+                    .style('top', (xy[1] + 100) + 'px');
+
             })
             .on('mouseleave', function () {
                 var tooltip = d3.select('.custom-tooltip')
                     .transition()
                     .style('opacity', 0);
-            });
+            })
+
     }
 
 }
